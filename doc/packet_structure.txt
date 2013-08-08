@@ -1,0 +1,16 @@
+Packet
+   Header : 12b
+      type : 4b
+      timeStamp : 4b
+      dataSize : 4b
+   
+   Data : variable
+      Datum
+         name : 16b
+         size : 4b
+         data : variable
+      Datum
+         name : 16b
+         size : 4b
+         data : variable
+      ...
