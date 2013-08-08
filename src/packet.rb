@@ -1,24 +1,11 @@
 class Data
-	def initialize
-		@data = Hash.new
-	end
+	attr_accessor :data, :size
+	attr_accessor :name
 
-	def size
-		@data.size
-	end
-
-	def get(idx)
-		@data[idx]	
-	end
-	def set(idx, value)
-		@data[idx] = value
-	end
-
-	def [](idx)
-		get idx
-	end
-	def []=(idx,value)
-		set idx, value
+	def initialize(name=nil, size=nil, data=nil)
+		@name = name
+		@size = size
+		@data = data
 	end
 end
 
@@ -27,6 +14,6 @@ class Packet
 	attr_accessor :data
 
 	def initialize
-		@data = Data.new
+		@data = Hash.new
 	end
 end
