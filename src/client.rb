@@ -8,11 +8,25 @@ rescue
 end
 
 
+
+def toNumber(data)
+	data.unpack('i')[0]
+end
+def toString(data, length=nil)
+	if length == nil
+		ret = data.data.unpack('a' + data.size.to_s)[0]
+	else
+		ret = data.unpack('a' + length.to_s)[0]
+	end
+
+	ret.split("\x00")[0]
+end
+
 def NetRecvNumber(socket)
-	socket.read(4).unpack('i')[0]
+	toNumber( socket.read(4) )
 end
 def NetRecvString(socket, length)
-	socket.read(length).unpack('a' + length.to_s)[0]
+	toString( socket.read(length) , length)
 end
 
 def recv(socket)
@@ -24,12 +38,12 @@ def recv(socket)
 
 	for i in 0..size-1
 		name = NetRecvString(socket, 16)
-		size = NetRecvNumber
-		data = socket.read(size).unpack('i')[0]
+		size = NetRecvNumber(socket)
+		data = socket.read(size)
 
 		d = NetData.new(data, size)
 
-		p.data[name] = d
+		p.data[name.to_s] = d
 	end
 
 	return p
@@ -43,8 +57,6 @@ def send(socket, packet)
 	packet.data.each do |name, datum|
 		socket.send [name].pack('a16'), 0
 		socket.send [datum.size].pack('i'), 0
-
-		puts datum.size
 
 		case datum.data.class.name
 			when "String"
@@ -72,6 +84,9 @@ while true
 	case p.type
 		when 100
 #			send c, nil
+		when 301
+			p p.data["reason"]
+			puts toString( p.data["reason"] )
 	end
 end
 
