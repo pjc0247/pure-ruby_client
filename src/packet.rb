@@ -2,8 +2,13 @@ class Data
 	attr_accessor :data, :size
 
 	def initialize(data=nil, size=nil)
-		@size = size
 		@data = data
+
+		if size == nil
+			@size = data.size
+		else
+			@size = size
+		end
 	end
 end
 
