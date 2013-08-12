@@ -8,16 +8,20 @@ rescue
 end
 
 
+def NetRecvNumber(socket)
+	socket.read(4).unpack('i')[0]
+end
+
 def recv(socket)
 	p = NetPacket.new
 
-	p.type			= socket.read(4).unpack('i')[0]
-	p.timestamp		= socket.read(4).unpack('i')[0]
-	size			= socket.read(4).unpack('i')[0]
+	p.type			= NetRecvNumber
+	p.timestamp		= NetRecvNumber
+	size			= NetRecvNumber
 
 	for i in 0..size-1
 		name = socket.read(16).unpack('a16')[0]
-		size = socket.read(4).unpack('i')[0]
+		size = NetRecvNumber
 		data = socket.read(size).unpack('i')[0]
 
 		d = NetData.new(data, size)
