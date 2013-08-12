@@ -5,7 +5,11 @@ class NetData
 		@data = data
 
 		if size == nil
-			@size = data.size
+			if data.class == String
+				@size = data.size+1			
+			else
+				@size = data.size
+			end
 		else
 			@size = size
 		end
