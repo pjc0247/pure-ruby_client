@@ -11,16 +11,19 @@ end
 def NetRecvNumber(socket)
 	socket.read(4).unpack('i')[0]
 end
+def NetRecvString(socket, length)
+	socket.read(length).unpack('a' + length.to_s)[0]
+end
 
 def recv(socket)
 	p = NetPacket.new
 
-	p.type			= NetRecvNumber
-	p.timestamp		= NetRecvNumber
-	size			= NetRecvNumber
+	p.type			= NetRecvNumber(socket)
+	p.timestamp		= NetRecvNumber(socket)
+	size			= NetRecvNumber(socket)
 
 	for i in 0..size-1
-		name = socket.read(16).unpack('a16')[0]
+		name = NetRecvString(socket, 16)
 		size = NetRecvNumber
 		data = socket.read(size).unpack('i')[0]
 
