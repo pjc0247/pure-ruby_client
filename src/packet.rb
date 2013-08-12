@@ -4,7 +4,10 @@ class NetData
 	def initialize(data=nil, size=nil)
 		@data = data
 
+		# 사이즈가 입력되지 않았으면 자동으로 지정
 		if size == nil
+			
+			# 문자열일 경우 끝에 널문자 1 바이트 추가
 			if data.class == String
 				@size = data.size+1			
 			else
