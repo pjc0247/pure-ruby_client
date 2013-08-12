@@ -43,7 +43,7 @@ def recv(socket)
 
 		d = NetData.new(data, size)
 
-		p.data[name.to_s] = d
+		p.data[name] = d
 	end
 
 	return p
