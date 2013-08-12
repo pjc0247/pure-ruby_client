@@ -1,4 +1,4 @@
-class Data
+class NetData
 	attr_accessor :data, :size
 
 	def initialize(data=nil, size=nil)
@@ -12,7 +12,7 @@ class Data
 	end
 end
 
-class Packet
+class NetPacket
 	attr_accessor :type, :timestamp
 	attr_accessor :data
 
