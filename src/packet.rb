@@ -1,9 +1,7 @@
 class Data
 	attr_accessor :data, :size
-	attr_accessor :name
 
-	def initialize(name=nil, size=nil, data=nil)
-		@name = name
+	def initialize(data=nil, size=nil)
 		@size = size
 		@data = data
 	end
@@ -13,7 +11,8 @@ class Packet
 	attr_accessor :type, :timestamp
 	attr_accessor :data
 
-	def initialize
+	def initialize(type = 0)
+		@type = type
 		@data = Hash.new
 	end
 end
